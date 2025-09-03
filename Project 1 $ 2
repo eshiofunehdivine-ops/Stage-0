@@ -33,22 +33,23 @@ if  grep -q "tatata" wildtype.fna; then
 elif stop
 
 #9
-history |wc -l wildtype.gbk
+tail -n  +2 wildtype.gbk.1 | wc -1
 
 #10
-grep "LOCUS" wildtype.gbk | awk {print $3}
+awk '/LOCUS/ {print $3}' wildtype.gbk 
 
-#11
+
+ #11
 grep "SOURCE" wildtype.gbk
 
 #12
- grep '/gene' wildtype.gbk
+grep '/gene' wildtype.gbk
 
 #13
 clear
 
 #14
-ls 
+ls
 
 
 
@@ -102,7 +103,7 @@ conda install samtools
 conda install bedtools
 
 #Task10
-conda intall spades.py
+conda install spades.py
 
 #Task11
 conda install bcftools
@@ -112,3 +113,4 @@ conda install fastp
 
 #Task13
 conda install multiqc
+
