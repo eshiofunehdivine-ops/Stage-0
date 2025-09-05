@@ -1,116 +1,132 @@
-#1
-echo "Balogun Eshiofuneh Divine"
-
-#2
+# 1. print your name
+echo "divine"
+#-------------
+# 2. create a folder titled your name 
 mkdir divine
-
-#3
-mkdir biocomputing && cd biocomputing
-
-#4
+#-------------
+# 3. create another directory titled 'biocomputing' and change to that directory with one line of command 
+mkdir biocomputing 
+cd biocomputing 
+#--------------
+# 4. downloading files 
 wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.fna
 wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk
 wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk
-
-#5
-mv wildtype.fna divine
-
-#6
-rm wildtype.gbk
-
-#7
-if grep -q "tatata" wildtype.fna; then
-  echo "Mutant file"
-
-elif grep -q "tata" wildtype.fna; then
-  echo "Wild type file"
-fi
-
-#8
-if  grep -q "tatata" wildtype.fna; then
-  echo "Mutant file" 
-  print "Mutant file" >> results.txt
-elif stop
-
-#9
-tail -n  +2 wildtype.gbk.1 | wc -1
-
-#10
-awk '/LOCUS/ {print $3}' wildtype.gbk 
-
-
- #11
+#--------------
+# 5. moving the '.fna' file to the folder titled my name 
+mv wildtype.fna../divine/
+#--------------
+# 6. delete the duplicate '.gbk' file
+rm wildtype.gbk.1
+#------------
+# 7. confirm if the '.fna' file is mutant or wild type ('tatata' vs 'tata')
+# mutant= contains repeat expansion 'tatatata'
+# wildtype= contains shorter 'tata' repeat 
+# change directory back to ../divine/ as it contains the/.fna/ file
+cd ../divine 
+#check mutation (){local wildtype.fna=$1;if grep "tatatata "wildtype.fna";then echo "Mutant sequence detected in $wildtype.fna",then grep "tatatata""wildtype.fna"> mutant_sequence.txt";else echo "Mutant lines save to mutant _sequence.txt";else echo "Wildtype sequence in $wildtype.fna"; fi; }
+grep "tatatata' wildtype.fna
+#---------------
+# 8. if mutant print all matching lines into a new file
+grep "tatatata" ../divine/widetype.fna > mutant_sequence.txt 
+#---------------
+# 9. count the number of lines (excluding header) in the '.gbk' file 
+# change directory to biocomputing containing the '.gbk' file
+cd ../biocomputing 
+grep -v "^LOCUS" wildtype.gbk | wc -l
+#--------------
+# 10. print the sequence length of the '.gbk' file. (use the 'LOCUS' tag in the first line)
+grep "^LOCUS" wildtype.gbk |awk'{print $3, $4}'
+#--------------------
+# 11. Print the source organism of the '.gbk' file. (Use the SOURCE' tag in the first line)
 grep "SOURCE" wildtype.gbk
-
-#12
-grep '/gene' wildtype.gbk
-
-#13
+#--------------------
+# 12. List all the gene names of the '.gbk' file. Hint {'grep '/gene=''}
+grep "/gene=" wildtype.gbk
+# 13. Clear your terminal space and print all command used today
 clear
-
-#14
+history
+#---------------------
+# 14. List the files in the two folders
+#I had to open the directory 'divine' before listing
+cd ../divine
 ls
+mutant_sequence.txt  wildtype.fna
+#----------------------
+# Moving to 'biocomputing' before listing too
+cd ../biocomputing
+ls
+wildtype.gbk
 
 
-
-
-
-
-
-#Project 2
-
-
-#Download the installer
+# Going back to the root folder to activate conda, then I open a new terminal to launch
+cd ../
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
-#Run the installer
+# Activating conda environment
 bash Miniconda3-latest-Linux-x86_64.sh
-#Press ENTER to continue
-#Type yes to agree to the license
-#Press ENTER to confirm the installation location
-    
-   
 
-#Task1
-#Activate your conda by closing and re opening the terminal, then run 
- conda--version
-    #this is to check if conda is installed and to activate it; if a set of number shows, it is activated
+# In order to continue the installation process, I reviewed the license agreement (all od these were done in CloudShell before opening a new terminal to install Bioinformatics softwares).
 
-#Task2
-conda create -n funtools
+(base) # Installing Bioinformatics Software on the Terminal
+(base) #--------------------
+(base) # checking conda version
+(base) conda --version
+conda 25.7.0
+(base) #--------------------
+(base) # 1. Activate your base conda environment
+(base) conda activate base
+(base) #--------------------
+(base) # Configuring bioconda channels
+(base) conda config --add channels defaults
+(base) conda config --add channels bioconda
+(base) conda config --add channels conda-forge
+(base) conda config --set channel_priority strict
+(base) #--------------------
+(base) # 2. Create a conda environment named 'funtools'
+(base) conda create -n funtools python=3.10 -y                                                                   
+(base) #--------------------                                         
+(base) # 3. Activate the 'funtools' environment
+(base) conda activate funtools                                       
+(funtools) #--------------------                                     
+(funtools) # 4. Install Figlet using conda or apt-get
+(funtools) # Using conda:
+(funtools) conda install -y -c conda-forge figlet                    
+(funtools) # Package was not found using conda, so I will proceed to 
+use apt-get: 
+(funtools) sudo apt-get install -y figlet
+(funtools) #--------------------
+(funtools) #5. Run 'figlet' <my name>
+(funtools) figlet "divine"
+  ___                       _     _ _                 _ _ 
+ / _ \ _ __   ___ _ __ ___ (_) __| (_)_ __ ___   ___ (_|_)
+| | | | '_ \ / _ \ '_ ` _ \| |/ _` | | '_ ` _ \ / _ \| | |
+| |_| | |_) |  __/ | | | | | | (_| | | | | | | |  __/| | |
+ \___/| .__/ \___|_| |_| |_|_|\__,_|_|_| |_| |_|\___|/ |_|
+      |_|                                          |__/   
+(funtools) #--------------------
+(funtools) # 6. Install 'bwa' through the bioconda channel
+(funtools) conda install -y -c bioconda bwa
+(funtools) #--------------------
+(funtools) # 7. Install blast through the bioconda channel
+(funtools) conda install -y -c bioconda blast                                                                      
+(funtools) #--------------------                                     
+(funtools) # 8. Install 'samtools' through the bioconda channel
+(funtools) conda install -y -c bioconda samtools                                                                                                  
+(funtools) #--------------------
+(funtools) # 9. Install 'bedtools' through the bioconda channel
+(funtools) conda install -y -c bioconda bedtools
+(funtools) #--------------------
+(funtools) # 10. Install 'spades.py' through the bioconda channel
+(funtools) conda install -y -c bioconda spades
+(funtools) #--------------------
+(funtools) # 11. Install 'bcftools' through the bioconda channel
+(funtools) conda install -y -c bioconda bcftools
+(funtools) #--------------------
+(funtools) # 12. Install 'fastp' through the bioconda channel
+(funtools) conda install -y -c bioconda fastp                                                                             
+(funtools) #--------------------                                     
+(funtools) ~$ # 13. Install 'multiqc' through the bioconda channel      
+(funtools) conda install -y -c bioconda multiqc                      
 
-#Task3
-conda activate funtools
-#this is to activate the environment you just created
-
-#Task4
-conda install -c figlets
-
-#Task5
-`figlets "Balogun Eshiofuneh Divine"`
-#this is to print your name in a fancy way
-
-#Task6
-conda install bwa
-
-#Task7
-conda install blast
-
-#Task8
-conda install samtools
-
-#Task9
-conda install bedtools
-
-#Task10
-conda install spades.py
-
-#Task11
-conda install bcftools
-
-#Task12
-conda install fastp
-
-#Task13
-conda install multiqc
-
+(funtools) 
